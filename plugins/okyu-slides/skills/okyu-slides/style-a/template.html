@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<title>ATISセミナー型 ひな形</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ── ATISセミナー型（2026-10-05 四日市）の基本CSS。値は AI BUDDY近藤.md の「3.」「4.」と同じ ── */
+:root{
+  --navy:#003383; --navy2:#0d3d89; --blue:#5d7db0;
+  --ink:#000000; --gray:#5a5a5a; --line:#dedede; --red:#e43c59;
+  --tint:#eef2f8; --tintg:#f2f2f2;
+  --jp:"Noto Sans JP","Hiragino Sans",sans-serif;
+  --en:"Elms Sans","Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#7a7a7a;font-family:var(--jp);-webkit-font-smoothing:antialiased}
+.slide{position:relative;width:1280px;height:720px;margin:24px auto;background:var(--navy);overflow:hidden}
+.paper{position:absolute;inset:20px;background:#fff}
+/* 枠に食い込む紺の帯（全ページ共通・位置は固定） */
+.g{position:absolute;background:var(--navy)}
+.g1 {top:20px; left:0;   width:150px;height:5px}
+.g2 {top:25px; left:0;   width:99px; height:4px}
+.g3 {top:30px; left:0;   width:81px; height:4.5px}
+.g4 {top:35px; left:0;   width:120px;height:5px}
+.g5 {top:20px; right:0;  width:151px;height:5px}
+.g6 {top:674px;right:0;  width:94px; height:5px}
+.g7 {top:679px;right:0;  width:61px; height:5px}
+.g8 {top:685px;right:0;  width:81px; height:4.5px}
+.g9 {top:690px;right:0;  width:120px;height:5px}
+.g10{top:695px;right:0;  width:81px; height:5px}
+.g11{top:695px;left:180px;width:133px;height:5px}
+/* 見出し＝文字＋紺の下線（左端は本文と揃える） */
+.head{position:absolute;left:20px;top:57px;display:inline-block}
+.headrow{display:flex;align-items:center;height:57px;padding-left:36px}
+.headrow h2{font-size:40px;font-weight:700;color:var(--navy);letter-spacing:.02em;line-height:1;padding-left:1px}
+.rule{height:3px;background:var(--navy);width:calc(100% + 8px)}
+.corner{position:absolute;top:545px;right:20px;width:61px}
+.body{position:absolute;top:150px;left:56px;right:56px;bottom:52px}
+.src{position:absolute;left:56px;right:56px;bottom:26px;font-size:18px;font-weight:400;color:var(--gray);line-height:1.5}
+/* 主張・本文 */
+.lead{font-size:60px;font-weight:700;color:var(--navy);line-height:1.25}
+.sub2{font-size:24px;font-weight:400;color:var(--gray);line-height:1.6}
+.txt{font-size:26px;font-weight:400;line-height:1.6}
+.hl{color:var(--red)} .nv{color:var(--navy)}
+.center{display:flex;flex-direction:column;justify-content:center;height:100%}
+.center.mid{align-items:center;text-align:center}
+/* 大きい数字 */
+.nums{display:grid;gap:28px;align-items:start}
+.nums.c1{grid-template-columns:1fr} .nums.c2{grid-template-columns:1fr 1fr}
+.num{font-size:123px;font-weight:700;line-height:.9;color:var(--navy)}
+.num.rd{color:var(--red)} .num.gy{color:var(--gray)}
+.num .u{font-size:44px;font-weight:700;margin-left:2px}
+.nlab{font-size:24px;font-weight:700;color:var(--ink);margin-top:14px;line-height:1.4}
+.nsub{font-size:20px;font-weight:400;color:var(--gray);margin-top:6px;line-height:1.5}
+.closer{font-size:34px;font-weight:700;color:var(--navy);line-height:1.35;margin-top:34px}
+/* 比較（左グレー → 右紺） */
+.duo{display:grid;grid-template-columns:1fr 64px 1fr;align-items:stretch}
+.box{padding:30px 34px;min-height:250px;display:flex;flex-direction:column;justify-content:center}
+.box.gy{background:var(--tintg)} .box.nv{background:var(--navy);color:#fff}
+.box .k{font-size:22px;font-weight:700;color:var(--gray);margin-bottom:12px}
+.box.nv .k{color:#c9d6ec}
+.box .t{font-size:60px;font-weight:700;line-height:1.35}
+.box .m{font-size:22px;font-weight:400;line-height:1.55;margin-top:12px;color:var(--gray)}
+.box.nv .m{color:#e8eef8}
+.arrow{width:52px;height:40px;background:var(--navy);align-self:center;justify-self:center;
+  clip-path:polygon(0 28%,58% 28%,58% 0,100% 50%,58% 100%,58% 72%,0 72%)}
+/* ビフォーアフター */
+.ba{display:grid;grid-template-columns:1fr 64px 1fr;align-items:center;margin-top:22px}
+.ba .k{font-size:22px;font-weight:700;color:var(--gray);margin-bottom:8px}
+.ba .t{font-size:60px;font-weight:700;color:var(--ink);line-height:1.3}
+.ba .t.nv{color:var(--navy)}
+.ba + .ba{margin-top:44px;padding-top:40px;border-top:1px solid var(--line)}
+/* 縦ステップ */
+.vrow{display:grid;grid-template-columns:104px 1fr;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line)}
+.vrow:last-child{border-bottom:none}
+.vrow.on{background:var(--tint);border-left:8px solid var(--navy);border-bottom:none}
+.vrow .n{font-family:var(--en);font-size:60px;font-weight:700;color:var(--gray);line-height:1}
+.vrow.on .n{color:var(--red)}
+.vrow .t{font-size:32px;font-weight:700;color:var(--ink);line-height:1.2}
+.vrow.on .t{color:var(--navy)}
+.vrow .m{font-size:22px;font-weight:400;color:var(--gray);line-height:1.5;margin-top:5px}
+/* 表（罫線だけ） */
+table{width:100%;border-collapse:collapse;font-size:26px;font-weight:700}
+td{padding:13px 8px;text-align:left;border-bottom:1px solid var(--line);line-height:1.4}
+td.k{font-size:22px;color:var(--gray);width:260px}
+tr:last-child td{border-bottom:none}
+/* 画面つき（右に実画面） */
+.withshot{right:540px}
+.shot{position:absolute;right:56px;top:150px;width:440px;bottom:52px;overflow:hidden;background:var(--tintg)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top}
+/* たとえ図（絵＋下に締め） */
+.metaimg{position:absolute;left:56px;right:56px;top:140px;height:430px;object-fit:contain;width:calc(100% - 112px)}
+/* 章扉（紺ベタ） */
+.cover .paper{background:var(--navy)}
+.cover .g{background:#fff}
+.chno{position:absolute;left:76px;top:112px;font-family:var(--en);font-size:220px;font-weight:700;color:#245094;line-height:1}
+.chtext{position:absolute;left:76px;right:76px;top:330px}
+.chtext .k{font-size:28px;font-weight:700;color:#c9d6ec}
+.chtext h1{font-size:76px;font-weight:700;color:#fff;line-height:1.25;margin-top:14px}
+/* ピル（ラベル） */
+.pill{display:inline-block;background:var(--gray);color:#fff;font-size:26px;font-weight:700;padding:8px 30px;border-radius:999px;line-height:1.2}
+.pill.rd{background:var(--red)}
+/* グラフ・図＝形はSVG、文字は上に重ねたHTML（.figtxt）。PPTX化するとSVGは画像に、.figtxtは直せる文字になる */
+.fig{position:relative}
+.fig svg{position:absolute;left:0;top:0}
+.figtxt{position:absolute;line-height:1;white-space:nowrap;font-weight:700}
+</style></head>
+<body>
+
+<!-- ① 章扉 -->
+<section class="slide cover">
+  <div class="paper"></div>
+  <i class="g g1"></i><i class="g g2"></i><i class="g g3"></i><i class="g g4"></i><i class="g g5"></i><i class="g g6"></i><i class="g g7"></i><i class="g g8"></i><i class="g g9"></i><i class="g g10"></i><i class="g g11"></i>
+  <div class="chno">01</div>
+  <div class="chtext"><div class="k">第1部</div><h1>AXの必要性</h1></div>
+</section>
+
+<!-- ② 大きい数字（2つ） -->
+<section class="slide">
+  <div class="paper"></div>
+  <i class="g g1"></i><i class="g g2"></i><i class="g g3"></i><i class="g g4"></i><i class="g g5"></i><i class="g g6"></i><i class="g g7"></i><i class="g g8"></i><i class="g g9"></i><i class="g g10"></i><i class="g g11"></i>
+  <div class="head"><div class="headrow"><h2>日本におけるAIの一般化</h2></div><div class="rule"></div></div>
+  <div class="body">
+    <div class="nums c2" style="margin-top:14px">
+      <div><div class="num">86.4<span class="u">%</span></div><div class="nlab">企業</div><div class="nsub">生成AIを業務で使っている</div></div>
+      <div><div class="num">58.8<span class="u">%</span></div><div class="nlab">個人</div><div class="nsub">生成AIを使ったことがある</div></div>
+    </div>
+    <div class="closer">調べる・書くだけでなく、発注や採用にも入り始めています。</div>
+  </div>
+  <div class="src">出典：総務省「令和8年版 情報通信白書」</div>
+  <img class="corner" src="assets/corner_bottom.png" alt="">
+</section>
+
+<!-- ③ 比較（これまで → 今） -->
+<section class="slide">
+  <div class="paper"></div>
+  <i class="g g1"></i><i class="g g2"></i><i class="g g3"></i><i class="g g4"></i><i class="g g5"></i><i class="g g6"></i><i class="g g7"></i><i class="g g8"></i><i class="g g9"></i><i class="g g10"></i><i class="g g11"></i>
+  <div class="head"><div class="headrow"><h2>基幹システムとの違い</h2></div><div class="rule"></div></div>
+  <div class="body">
+    <div class="duo" style="margin-top:8px">
+      <div class="box gy"><div class="k">よくある形</div><div class="t">完成品を買う</div></div>
+      <div class="arrow"></div>
+      <div class="box nv"><div class="k">私たちの形</div><div class="t">作れるようになる</div></div>
+    </div>
+    <div class="closer" style="margin-top:38px">お金を払う対象が違います。</div>
+  </div>
+</section>
+
+<!-- ④ ビフォーアフター（事例） -->
+<section class="slide">
+  <div class="paper"></div>
+  <i class="g g1"></i><i class="g g2"></i><i class="g g3"></i><i class="g g4"></i><i class="g g5"></i><i class="g g6"></i><i class="g g7"></i><i class="g g8"></i><i class="g g9"></i><i class="g g10"></i><i class="g g11"></i>
+  <div class="head"><div class="headrow"><h2>経理　請求書の作成と確認</h2></div><div class="rule"></div></div>
+  <div class="body">
+    <div class="ba"><div><div class="k">これまで</div><div class="t">月32時間</div></div><div class="arrow"></div><div><div class="k">AIで</div><div class="t nv">月5時間</div></div></div>
+    <div class="ba"><div><div class="k">金額（時給2,000円換算）</div><div class="t">月6.4万円</div></div><div class="arrow"></div><div><div class="k">制作日数</div><div class="t nv"><span class="pill rd">制作3日</span></div></div></div>
+  </div>
+  <div class="src">※ 従業員100名規模の目安。AIの間違いを人がチェックする仕事は残ります。</div>
+</section>
+
+<!-- ⑤ 縦ステップ -->
+<section class="slide">
+  <div class="paper"></div>
+  <i class="g g1"></i><i class="g g2"></i><i class="g g3"></i><i class="g g4"></i><i class="g g5"></i><i class="g g6"></i><i class="g g7"></i><i class="g g8"></i><i class="g g9"></i><i class="g g10"></i><i class="g g11"></i>
+  <div class="head"><div class="headrow"><h2>進め方</h2></div><div class="rule"></div></div>
+  <div class="body">
+    <div class="vrow"><span class="n">01</span><div><div class="t">伴走で課題に気づく</div><div class="m">実際の業務で、一緒に作ります</div></div></div>
+    <div class="vrow on"><span class="n">02</span><div><div class="t">「楽になった」を作る</div><div class="m">使えると分かってから、広がります</div></div></div>
+    <div class="vrow"><span class="n">03</span><div><div class="t">全体へ</div><div class="m">最後に、全員のスタートラインを揃えます</div></div></div>
+  </div>
+</section>
+
+<!-- ⑥ 画面つき（右に実画面。img を差し替える） -->
+<section class="slide">
+  <div class="paper"></div>
+  <i class="g g1"></i><i class="g g2"></i><i class="g g3"></i><i class="g g4"></i><i class="g g5"></i><i class="g g6"></i><i class="g g7"></i><i class="g g8"></i><i class="g g9"></i><i class="g g10"></i><i class="g g11"></i>
+  <div class="head"><div class="headrow"><h2>実演）請求書が下書きに溜まる</h2></div><div class="rule"></div></div>
+  <div class="body withshot"><div class="center"><div class="lead">放っておくと、<br>できている。</div><div class="sub2" style="margin-top:18px">請求予定の表から、請求書とメールの下書きまで自動で作ります。</div></div></div>
+  <div class="shot"><img src="見本/p043_実演_実画面.jpg" alt=""></div>
+  <div class="src">※ 画面は架空のデータです。</div>
+</section>
+
+<!-- ⑦ グラフ：ドーナツ（割合）。stroke-dasharray の1つ目＝円周×割合（円周＝2×3.14×r） -->
+<section class="slide">
+  <div class="paper"></div>
+  <i class="g g1"></i><i class="g g2"></i><i class="g g3"></i><i class="g g4"></i><i class="g g5"></i><i class="g g6"></i><i class="g g7"></i><i class="g g8"></i><i class="g g9"></i><i class="g g10"></i><i class="g g11"></i>
+  <div class="head"><div class="headrow"><h2>研修費用の4分の3は、国から</h2></div><div class="rule"></div></div>
+  <div class="body">
+    <div class="fig" style="width:1168px;height:470px">
+      <svg width="1168" height="470" viewBox="0 0 1168 470">
+        <circle cx="584" cy="200" r="110" fill="none" stroke="#e43c59" stroke-width="48"/>
+        <circle cx="584" cy="200" r="110" fill="none" stroke="#003383" stroke-width="48" stroke-dasharray="518.4 691.2" transform="rotate(-90 584 200)"/>
+      </svg>
+      <div class="figtxt" style="left:504px;top:186px;width:160px;text-align:center;font-size:24px;color:#5a5a5a">研修費用</div>
+      <div class="figtxt" style="left:120px;top:150px;width:300px;text-align:right;font-size:28px;color:#003383">国から助成</div>
+      <div class="figtxt" style="left:120px;top:196px;width:300px;text-align:right;font-size:64px;color:#003383">4分の3</div>
+      <div class="figtxt" style="left:748px;top:150px;width:300px;font-size:28px;color:#e43c59">自己負担</div>
+      <div class="figtxt" style="left:748px;top:196px;width:300px;font-size:64px;color:#e43c59">4分の1</div>
+      <div class="figtxt" style="left:0;top:400px;width:1168px;text-align:center;font-size:34px;color:#003383">1人20万円の研修なら、自己負担は5万円。</div>
+    </div>
+  </div>
+  <div class="src">※ 金額は例です。</div>
+</section>
+
+<!-- ⑧ グラフ：横棒（これまで＝グレー／AIで＝紺）。棒の幅＝値÷最大値×700px -->
+<section class="slide">
+  <div class="paper"></div>
+  <i class="g g1"></i><i class="g g2"></i><i class="g g3"></i><i class="g g4"></i><i class="g g5"></i><i class="g g6"></i><i class="g g7"></i><i class="g g8"></i><i class="g g9"></i><i class="g g10"></i><i class="g g11"></i>
+  <div class="head"><div class="headrow"><h2>経理の仕事、月あたりの時間</h2></div><div class="rule"></div></div>
+  <div class="body">
+    <div class="fig" style="width:1168px;height:400px">
+      <svg width="1168" height="400" viewBox="0 0 1168 400">
+        <rect x="300" y="20" width="700" height="34" fill="#dedede"/>
+        <rect x="300" y="60" width="87" height="34" fill="#003383"/>
+        <rect x="300" y="150" width="560" height="34" fill="#dedede"/>
+        <rect x="300" y="190" width="87" height="34" fill="#003383"/>
+        <rect x="300" y="280" width="280" height="34" fill="#dedede"/>
+        <rect x="300" y="320" width="53" height="34" fill="#003383"/>
+      </svg>
+      <div class="figtxt" style="left:0;top:42px;width:280px;text-align:right;font-size:26px;color:#000">経費申請のチェック</div>
+      <div class="figtxt" style="left:1012px;top:24px;font-size:26px;color:#5a5a5a">40時間</div>
+      <div class="figtxt" style="left:399px;top:64px;font-size:26px;color:#003383">5時間</div>
+      <div class="figtxt" style="left:0;top:172px;width:280px;text-align:right;font-size:26px;color:#000">請求書の作成と確認</div>
+      <div class="figtxt" style="left:872px;top:154px;font-size:26px;color:#5a5a5a">32時間</div>
+      <div class="figtxt" style="left:399px;top:194px;font-size:26px;color:#003383">5時間</div>
+      <div class="figtxt" style="left:0;top:302px;width:280px;text-align:right;font-size:26px;color:#000">支払予定と支払漏れ</div>
+      <div class="figtxt" style="left:592px;top:284px;font-size:26px;color:#5a5a5a">16時間</div>
+      <div class="figtxt" style="left:365px;top:324px;font-size:26px;color:#003383">3時間</div>
+    </div>
+    <div class="closer" style="margin-top:0">合わせて、ひと月<span class="hl" style="font-size:60px">75時間</span>減ります。</div>
+  </div>
+  <div class="src">※ 従業員100名規模の目安。グレー＝これまで、紺＝AIで。</div>
+</section>
+
+</body></html>

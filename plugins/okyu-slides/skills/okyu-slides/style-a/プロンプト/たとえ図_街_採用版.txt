@@ -1,0 +1,50 @@
+# 見本 p069「これが30人分になったら」
+# エンジン: gpt-image-2.5-sunburst (openai-mcp gen_image.js CLI, size 2048x928, quality high)
+
+Flat vector isometric illustration, ultra-wide panoramic, on a pure white background.
+
+SUBJECT: a small town in which about FOURTEEN individual people are each personally building their OWN small house with their own hands. This is the single most important idea in the picture: ONE PERSON = ONE BUILDING. Every building has its own builder standing right at it, touching the work.
+
+SCALE - read this carefully, it decides whether the picture succeeds:
+- The PEOPLE are the main subject, not the buildings. Each person stands about one eighth of the total image height tall - large enough to clearly read their pose, their tool and their apron.
+- Each building is SMALL: one or two storeys only, never taller than about two and a half times the height of the person standing next to it. No tall office towers, no large blocks, no big-city skyline.
+- Do NOT shrink the people into tiny specks. A viewer looking at this picture at only 1150 pixels wide must be able to tell what every single person is doing with their hands.
+- Each builder is placed immediately beside, inside or on top of their own house, so the pairing of that person with that building is instantly obvious.
+
+WHAT EACH PERSON IS DOING - every one of them is physically working, hands on the material:
+laying bricks onto a low wall with a trowel; hammering a plank onto a roof; sawing a board on a trestle; painting a finished wall with a roller on a pole; fitting a pane of glass into a window frame; kneeling to read a spread-out drawing while assembling a frame; carrying a beam up onto a structure; driving screws into the upper floor from a short ladder; tightening a joint on a timber frame with a wrench; laying floorboards on their knees.
+- NOBODY is merely supervising, pointing, watching, inspecting or walking past. There are NO idle onlookers, NO foreman with a clipboard, NO businessmen in suits strolling along the street. Every single figure is caught mid-action with a tool or a piece of material in their hands.
+- The figures are heavily simplified with NO facial features at all: blank simple heads with simple dark hair, no eyes, no nose, no mouth. Simple rounded bodies and limbs. They wear craftsman work aprons over white or pale shirts - most aprons deep navy, a few in the accent colours listed below.
+
+BUILDING STAGES - the town must clearly read as STILL IN PROGRESS, never as a finished tidy city. Mix the stages visibly:
+- about four are finished small houses with coloured roofs, their builder adding the very last touch - rolling paint onto a wall, fitting the final window
+- about four are half-built, with a light scaffold of thin navy poles and a plank walkway, their builder standing up on it working
+- about four are bare open timber frames - posts, beams and a floor plate, no walls yet, so you can see straight through them - their builder inside assembling
+- about two are only a foundation slab with the first course of bricks and neat stacks of material, their builder kneeling over it
+
+COLOUR - this version is deliberately colourful, because each person is making something of their own:
+- The navy outline is unchanged and non-negotiable: every edge keeps the same thin, perfectly UNIFORM-WIDTH dark navy outline, colour #1b3a7a.
+- Fills stay FLAT: no gradients, no shading ramps, no texture, no ambient occlusion, no bevel, no glow.
+- Each house gets its OWN distinct colour so a viewer can see the houses belong to different people. Use only this restrained, slightly muted mid-saturation palette: deep rose-red #d33c5b, warm amber #e0a33f, muted teal-green #4f9d8c, mid blue #5d7db0, terracotta #c98a6b, soft leaf green #86b25c, dusty violet #8b7fb5.
+- Apply the colour mainly to the ROOFS, plus a few painted wall panels, doors and shop awnings. Keep most walls pure white #ffffff or very pale blue-grey #eef1f8 so the picture stays clean and airy rather than noisy.
+- NO neon, NO fluorescent colours, NO pure saturated primary red/yellow/blue, no rainbow oversaturation, no muddy browns or dull greys.
+- The ground slab, the streets, the scaffolding and the tools stay pale blue-grey #eef1f8 and navy #1b3a7a, exactly as in the previous picture.
+
+CRITICAL RULE ABOUT OUTLINES AND WOOD - the previous attempt failed on exactly this point:
+- EVERY object in the picture is outlined in the SAME dark navy #1b3a7a. This includes all timber, posts, beams, planks, roof trusses, stacked lumber, ladders, scaffolding, bricks, tools and plants. There are NO brown outlines, NO tan outlines, NO coloured outlines of any kind anywhere in the image.
+- Wood and timber are drawn as a FLAT pale sand fill with a navy outline, with NO wood grain, NO timber texture lines, NO growth rings, NO diagonal hatching, and NO soft shading. A wooden post is simply a flat shape with a navy edge, exactly like every other object.
+- Bricks and blocks are a flat pale fill with navy outlines and simple thin navy joint lines. Not a photographic brick texture, not a warm red-brown masonry pattern.
+- Nothing in the picture has soft airbrushed shading, gradient falloff or painterly texture. Every single surface is one solid flat colour bounded by a navy line.
+
+GROUND: the whole town stands on ONE large pale blue-grey (#eef1f8) tiled slab with faint white grid lines, floating as a flat plate in empty white space, with a visible thin navy-outlined side edge showing its thickness, like a floating diorama base. Nothing below it. Simple streets run between the plots with one or two intersections so it reads as a town rather than a row of boxes. Leave clean empty pale street and a margin of bare slab around the edges.
+
+PROJECTION AND LINE STYLE:
+- True isometric / equal-angle axonometric, seen from a high three-quarter angle. All vertical edges exactly vertical; all ground edges run at 30 degrees to the left and to the right. No perspective, no vanishing point, no camera tilt.
+- Every edge carries the same thin uniform-width navy outline. Crisp clean vector strokes, no hand-drawn wobble, no sketchy or brushy lines, no tapering, no ink texture.
+- This is a 2D FLAT VECTOR infographic drawing. It is NOT a 3D render, NOT cinematic, NOT photorealistic, NOT soft-lit isometric game art, NOT clay or plastic miniatures.
+- Shadows are only very light flat pale ellipses directly beneath the figures and objects. No soft blur, no long directional cast shadows.
+- Background is flat pure white and completely empty: no sky, no clouds, no horizon line, no distant scenery, no frame or border.
+
+DENSITY: about fourteen buildings only. Do not fill every gap. Keep generous spacing between the plots. Simple bold geometry with only a few windows per house, so that the people remain the most legible thing in the picture.
+
+ABSOLUTELY NO TEXT anywhere: no letters, no words, no numbers, no Japanese characters, no signage lettering, no road markings, no logos, no watermark, no signature. Every sign and board in the scene is completely blank.

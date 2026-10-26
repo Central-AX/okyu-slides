@@ -1,0 +1,6 @@
+{
+  "name": "okyu-slides",
+  "description": "2種類のデザイン（A=紺枠×大きい数字／B=グレー×特大番号）で投影スライドをHTML→編集できるPPTXとして作る",
+  "version": "1.0.0",
+  "author": { "name": "Central AX" }
+}

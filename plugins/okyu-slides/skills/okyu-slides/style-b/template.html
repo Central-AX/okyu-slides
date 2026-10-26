@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<title>伴走支援セミナー型 ひな形</title>
+<style>
+/* ── ATIS「AI企業型伴走支援セミナー」デザイナー仕上げ版の基本CSS ──────────────────────
+   値はすべて PDF 原寸 1280×720 の実測（デザイン仕様.md）。ページを作るときはこのCSSを触らず、
+   下の <section> をコピーして文言・数字・画像だけ書き換える。
+   文字の top は「ベースライン − 0.84×文字サイズ」（LINE Seed JP・line-height:1 のとき）で置いている。
+   letter-spacing は校正用画像との重ね合わせで合わせた値（PPTXには移らない＝PPTXでは字間0で出る）。 */
+@font-face{font-family:"LINE Seed JP_OTF";font-weight:400;src:url("assets/fonts/LINESeedJP_OTF_Rg.woff2") format("woff2")}
+@font-face{font-family:"LINE Seed JP_OTF";font-weight:700;src:url("assets/fonts/LINESeedJP_OTF_Bd.woff2") format("woff2")}
+@font-face{font-family:"LINE Seed JP_OTF";font-weight:800;src:url("assets/fonts/LINESeedJP_OTF_Eb.woff2") format("woff2")}
+:root{
+  --navy:#003383; --red:#E43C59; --ink:#231815; --numgray:#595757; --paper:#F2F2F2;
+  --dark:#3E3A39;   /* ピル・番号丸・矢印・本文の濃いグレー */
+  --sub:#717071;    /* 説明文・区切り線（縦） */
+  --line:#C8C8C8;   /* カードの縁・区切り線（横） */
+  --plan:#D7E9F3;   /* プランの推し列だけ */
+  --ghost-idx:#1E4B92;  /* INDEX の薄い英字（紺に白12%） */
+  --ghost-chap:#22579D; /* 章扉の薄い番号（紺×写真に白13%） */
+  --ghost-sec:#194790;  /* 節扉・紺ベタ版の薄い英単語（紺に白10%） */
+  --ring:#C8C9CA;       /* ドーナツの残り */
+  --band:#0D1A61;   /* 表紙の帯だけ */
+  --jp:"LINE Seed JP_OTF","Hiragino Sans","Yu Gothic",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#7a7a7a;font-family:var(--jp);font-weight:700;color:var(--ink);-webkit-font-smoothing:antialiased}
+.slide{position:relative;width:1280px;height:720px;margin:24px auto;background:var(--paper);overflow:hidden}
+.slide.navy{background:var(--navy)}   /* 表紙・INDEX・章扉 */
+.slide>*{position:absolute}
+.slide div,.slide span{line-height:1;white-space:nowrap}
+
+/* 枠＋紺ストライプ：<div class="frame"> に <i> を15個（枠4本＋ストライプ11本）。値を変えない・増やさない。
+   枠は「紙面の上に紺の帯4本」で描く＝薄い英単語（.ghost）は枠の下に隠れ、特大番号（.bignum）は枠の上に出る。
+   並び順：.ghost → .frame → .bignum → 見出し・本文 */
+.frame{left:0;top:0;width:1280px;height:720px}
+.frame i{position:absolute;background:var(--navy)}
+.frame i:nth-child(1){left:0;top:0;width:1280px;height:20px}
+.frame i:nth-child(2){left:0;top:700px;width:1280px;height:20px}
+.frame i:nth-child(3){left:0;top:20px;width:20px;height:680px}
+.frame i:nth-child(4){left:1260px;top:20px;width:20px;height:680px}
+.frame i:nth-child(5) {left:17.3px; top:20px;   width:133.1px;height:5.3px}
+.frame i:nth-child(6) {left:0;      top:25.3px; width:99.5px; height:4.2px}
+.frame i:nth-child(7) {left:0;      top:29.5px; width:81.4px; height:5.3px}
+.frame i:nth-child(8) {left:0;      top:34.8px; width:120.8px;height:5.3px}
+.frame i:nth-child(9) {left:1129.1px;top:20px;  width:133.2px;height:5.3px}
+.frame i:nth-child(10){left:180.2px;top:695px;  width:133.2px;height:5.3px}
+.frame i:nth-child(11){left:1185.5px;top:674px; width:94.5px; height:5.3px}
+.frame i:nth-child(12){left:1219.3px;top:679.3px;width:60.7px;height:5.3px}
+.frame i:nth-child(13){left:1198.9px;top:684.6px;width:81.1px;height:5.3px}
+.frame i:nth-child(14){left:1159.4px;top:689.9px;width:120.6px;height:5.3px}
+.frame i:nth-child(15){left:1198.9px;top:695.2px;width:81.1px;height:5.3px}
+
+/* 薄い特大番号（章番号2桁・1ページ1つ）と薄い英単語。どちらも紙面の白で「薄く」見せる */
+.bignum{left:-35px;top:-38.4px;font-size:368.3px;letter-spacing:-.014em;color:#fff}
+.ghost{color:#fff}
+.ghost.q  {left:0;width:1280px;text-align:center;top:3.3px;font-size:273.5px;letter-spacing:-.021em}   /* 問いかけ */
+.ghost.sec{left:0;width:1280px;text-align:center;top:290.6px;font-size:167.1px;letter-spacing:-.016em}  /* 節扉 */
+.ghost.idx{left:25px;top:-6.4px;font-size:368.3px;color:var(--ghost-idx)}        /* INDEX */
+.bignum.chap{left:-33px;top:-37.4px;color:var(--ghost-chap)}                     /* 章扉 */
+
+/* 見出し＝赤英字キャプション12px＋紺40px */
+.cap{left:50px;top:54.9px;font-size:12px;letter-spacing:.03em;color:var(--red)}
+.ttl{left:47px;top:77.4px;font-size:40px;color:var(--navy)}
+/* 結論行（紺50px・中央・赤は1か所）。.low は下にカードが大きいページ用 */
+.concl{left:20px;width:1240px;text-align:center;top:541px;font-size:50px;letter-spacing:-.03em;color:var(--navy)}
+.concl.low{top:593px}
+.concl.s{top:511.5px;font-size:28px}      /* カードのすぐ下に置く小さい一文 */
+.concl.two{top:499px}
+.concl.two div{line-height:62px}
+/* 出典・注記（17pxはここだけ） */
+.src{left:45px;top:664.7px;font-size:17px;letter-spacing:-.025em;color:var(--ink)}
+.hl{color:var(--red)} .nv{color:var(--navy)} .dk{color:var(--dark)} .gy{color:var(--numgray)} .wt{color:#fff}
+
+/* 白カード＝外側の灰（縁1.5px）＋内側の白。CSSのborderはPPTXで角が四角く出るので使わない */
+.card{background:var(--line);border-radius:14.5px}
+.card>.in{position:absolute;inset:1.5px;border-radius:13px;background:#fff}
+.card.r{border-radius:26px} .card.r>.in{border-radius:24.5px}
+.card>.in.nv{background:var(--navy)}
+.card>.in.blue{background:var(--plan)}
+.in>*{position:absolute}
+/* ピル（ラベル）・番号丸・VS丸 */
+.pill{border-radius:999px;background:var(--dark);color:#fff;text-align:center}
+.pill.rd{background:var(--red)} .pill.nv{background:var(--navy)}
+.dot{width:38.6px;height:38.6px;border-radius:50%;background:var(--dark);color:#fff;font-size:24.6px;line-height:38.6px !important;text-align:center}
+/* 矢印（PPTXでは右矢印の図形になる） */
+.arrow{background:var(--dark);clip-path:polygon(0 28.7%,43% 28.7%,43% 0,100% 50%,43% 100%,43% 71.3%,0 71.3%)}
+.arrow.big{background:var(--navy);clip-path:polygon(0 18.3%,46.9% 18.3%,46.9% 0,100% 50%,46.9% 100%,46.9% 81.7%,0 81.7%)}
+
+/* ── 型ごとの部品 ── */
+/* 表紙：全面写真＋下の帯（帯の段差は p001 実測） */
+.cover .bg{left:0;top:0;width:1280px;height:720px}
+.band i{position:absolute;background:var(--band)}
+.cover .t1{left:101px;top:535.9px;font-size:31px;color:#fff}
+.cover .t1 span{font-size:35.7px}
+.cover .t2{left:20px;width:806px;text-align:center;top:582.8px;font-size:25.2px;color:#fff}
+.cover .dash{top:594px;width:28.7px;height:1px;background:#fff}
+/* INDEX（紺ベタ） */
+.idx{left:367px;top:159.5px}
+.idx .row{display:flex;align-items:baseline;height:148px}
+.idx .n{width:97px;text-align:center;font-size:69.7px;color:#fff}
+.idx .t{margin-left:21px;font-size:49.3px;color:#fff}
+.foot{left:48px;top:661.2px;font-size:20px;letter-spacing:.025em;color:var(--red)}
+.logo{left:1090.3px;top:662.1px;width:165.5px;height:35.9px}
+.logo.idxlogo{left:1003.4px;top:644.5px;width:237px;height:51.4px}
+/* 章扉 */
+.chapbg{left:0;top:0;width:1280px;height:720px}
+.chaptl{left:20px;width:1240px;text-align:center;top:338.2px;font-size:70px;color:#fff}
+/* 節扉・問いかけ */
+.sectl{left:20px;width:1240px;text-align:center;top:342px;font-size:50px;letter-spacing:-.03em;color:var(--navy)}
+.qtl{left:20px;width:1240px;text-align:center;top:345px;font-size:50px;letter-spacing:-.03em;color:var(--navy)}
+.qsub{left:20px;width:1240px;text-align:center;top:416.5px;font-size:22px;color:var(--ink)}
+/* 大きい数字2カード（p007）：ピル左上・数字110＋単位48.4・下に説明 */
+.stat2{top:218.2px;width:421.7px;height:268.6px}
+.stat2 .pill{left:40.1px;top:23.7px;width:146.3px;height:49px;line-height:49px !important;font-size:28.8px}
+.stat2 .bn{left:0;right:0;top:87.9px;text-align:center;font-size:110px;color:var(--navy)}
+.stat2 .bn span{font-size:48.4px}
+.stat2 .bl{left:0;right:0;top:214px;text-align:center;font-size:25.3px;color:var(--ink)}
+.stat2 .tl{left:0;right:0;top:33.4px;text-align:center;font-size:32.7px;color:var(--navy)}  /* 上ラベル型（p064）で使う */
+.stat2 .in.nv .bn,.stat2 .in.nv .bl{color:#fff}
+.stat2 .bn.gy{color:var(--numgray)} .stat2 .bn.hl{color:var(--red)}   /* 白×白カード（p064）の比べる数字：前＝グレー、後＝赤 */
+/* 大きい数字1つ＋実画面（p008） */
+.hero{left:138px;top:205.3px;font-size:135.3px;color:var(--red)}
+.hero span{font-size:59.6px;margin-left:24px}
+.bubble{left:158.6px;top:371.3px;width:322.5px;height:92.2px;border-radius:17.6px;background:var(--navy)}
+.bubble div{position:absolute;left:20.4px;top:15.1px;font-size:25.3px;line-height:32px !important;color:#fff}
+.tail{left:308px;top:346.9px}
+.heronote{left:150px;top:505.5px;font-size:28px;color:var(--red)}
+.screen{left:570px;top:132px;width:619px;height:483px}
+/* 比較VS（p061） */
+.claim{left:20px;width:1240px;text-align:center;top:218.9px;font-size:46.5px;color:var(--navy)}
+.vs{top:305px;width:442.5px;height:202.6px}
+.vs .k{left:0;right:0;top:22.2px;text-align:center;font-size:25.3px;color:var(--red)}
+.vs .rule{left:23.5px;top:66.4px;width:387.8px;height:0;border-top:1px solid var(--line)}
+.vs .t{left:0;right:0;top:84.9px;text-align:center;font-size:37.2px;color:var(--navy)}
+.vs .t div{line-height:46px !important}
+.vsdot{left:597.9px;top:373.9px;width:76.2px;height:76.2px;border-radius:50%;background:var(--ink);color:#fff;font-size:35.4px;line-height:76.2px !important;text-align:center}
+/* 4カード 時間削減（p034） */
+.c4{width:446.9px;height:202.9px}
+.c4 .h{left:0;right:0;top:15.8px;text-align:center;font-size:32.7px;color:var(--navy)}
+.c4 .grp{left:0;right:0;top:73.5px;display:flex;justify-content:center}
+.c4 .gin{display:flex;flex-direction:column}
+.c4 .lab{font-size:20px;color:var(--ink);padding-left:13px}
+.c4 .row{display:flex;align-items:baseline;margin-top:6px}
+.c4 .from{font-size:83.1px;color:var(--numgray)}
+.c4 .to{font-size:83.1px;color:var(--navy)}
+.c4 .arrow{width:32.2px;height:31.5px;margin:0 15px;align-self:center}
+.c4 .u{font-size:23px;color:var(--dark);margin-left:8px}
+/* 3つの数字 横並び（p065） */
+.n3{left:36px;top:212px;width:1202px;display:grid;grid-template-columns:repeat(3,1fr)}
+.n3>div{position:relative;height:229px}
+.n3>div+div{border-left:1px solid var(--sub)}
+.n3 .pill{position:absolute;left:50%;transform:translateX(-50%);top:0;height:43.2px;line-height:43.2px !important;padding:0 26px;font-size:25.3px}
+.n3 .lab{position:absolute;left:0;right:0;top:87.8px;text-align:center;font-size:30px;color:var(--ink)}
+.n3 .num{position:absolute;left:0;right:0;top:134.3px;text-align:center;font-size:102px;color:var(--red)}
+.n3 .num span{font-size:44.9px;color:var(--navy)}
+/* 縦ステップ（p095） */
+.steps{left:44px;top:13.3px;width:716.9px}
+.steps .st{display:flex;align-items:center;height:95.6px;border-bottom:.75px solid var(--line)}
+.steps .st:last-child{border-bottom:none}
+.steps .dot{position:static;flex:none;margin-left:9px}
+.steps .tx{margin-left:13.1px}
+.steps .t{font-size:23.9px;color:var(--dark)}
+.steps .t.nv{color:var(--navy)}
+.steps .m{margin-top:11.4px;font-size:20px;font-weight:400;color:var(--sub)}
+/* やったこと→起きたこと（p024） */
+.did{left:142.5px;top:173.4px;width:984.1px;height:344.5px}
+.did .pill{top:28.4px;width:193.7px;height:31.7px;line-height:31.7px !important;font-size:20px}
+.did .col{top:53.2px;width:366.4px}
+.did .li{display:flex;align-items:center;height:95.6px;border-bottom:.75px solid var(--line)}
+.did .li:last-child{border-bottom:none}
+.did .li .dot{position:static;flex:none;margin-left:9px}
+.did .li .t{margin-left:11.3px;font-size:23.9px;color:var(--dark)}
+.did .col.after .t{margin-left:0;color:var(--red)}
+.didarrow{left:597.2px;top:249px;width:66.7px;height:211.7px}
+/* プラン3列（p097） */
+.plan{top:165.1px;width:330.3px;height:359.4px}
+.plan .h{left:24.7px;top:32.1px;font-size:32.5px;color:var(--navy)}
+.plan .h.fit{font-size:31.2px;letter-spacing:-.04em}   /* 10文字の見出し */
+.plan .p{left:25.7px;top:85px;font-size:68.3px;color:var(--navy)}
+.plan .p span{font-size:41.3px;margin-left:6px}
+.plan .d{left:26.7px;top:170.6px;font-size:20px;font-weight:400;color:var(--dark)}
+.plan .d div{line-height:30px !important}
+.plan .f{left:29.7px;top:305.5px;font-size:27.3px;color:var(--navy)}
+.plan .c{left:0;right:0;text-align:center}
+.plan .rd{color:var(--red)}
+.concl.plan-c{top:566.4px;font-size:40px}
+/* 締め（p101）：番号なし・紺＋赤の一文 */
+.closing{left:83px;top:274.9px;font-size:53.2px;color:var(--navy)}
+.closing div{line-height:66px !important}
+.closing .kakko{text-indent:-.5em}
+.closing2{left:20px;width:1240px;text-align:center;top:511.3px;font-size:53.2px;color:var(--navy)}
+/* 節扉・紺ベタ版（A032/A050/A073）：薄い英単語は上端に置き、単語ごとに文字サイズで横幅いっぱい（x −10〜1286）に合わせる */
+.ghost.secnv{left:-10px;top:-12.9px;font-size:165.3px;letter-spacing:-.007em;color:var(--ghost-sec)}
+.secnvtl{left:20px;width:1240px;text-align:center;top:286px;font-size:50px;color:#fff}
+.secnvtl div{line-height:62px !important}
+.secnvtl.one{top:317px}                   /* サブタイトル無し（1行）のとき */
+.foot.secft{top:669.2px}
+.logo.seclogo{left:993.6px;top:652.5px;width:236.9px;height:51.4px}
+/* ドーナツ2つ（A080）：輪は SVG（中心線の半径145.8・太さ31）、数字とラベルは上に重ねた HTML。
+   輪の上の数字・ラベルは HTML で重ねる（html2pptx は撮影中に SVG 以外を隠すので写り込まない。figtxt は互換用） */
+.dnut{top:139.8px;width:500px;height:440px}
+.dnut svg{position:absolute;left:88.7px;top:0}
+.dnut .dnum{position:absolute;left:0;right:0;top:129.4px;text-align:center;font-size:80.7px;color:var(--navy)}
+.dnut .dnum span{font-size:35.5px}
+.dnut .dlab{position:absolute;left:0;right:0;top:350.5px;text-align:center;font-size:29.4px;color:var(--ink)}
+.dnut .dsub{position:absolute;left:0;right:0;top:391.1px;text-align:center;font-size:22.7px;color:var(--sub)}
+.dnut .dnum.hl{color:var(--red)}
+/* 主張文＋補足箱（A081）：紺69.6px 3行を左寄せ＋縁なしの白カードに補足1行 */
+.claim3{left:295px;top:186.3px;font-size:69.6px;color:var(--navy)}
+.claim3 div{line-height:86px !important}
+.card.flat{background:#fff;border-radius:20.9px} .card.flat>.in{border-radius:19.4px}
+.note1{left:87.2px;top:490.1px;width:1112.9px;height:90.5px}
+.note1 .t{left:0;right:0;top:29.2px;text-align:center;font-size:27.6px;letter-spacing:-.02em;color:var(--ink)}
+</style></head>
+<body>
+
+<!-- ① 表紙：全面写真1枚＋下の帯だけ。タイトルの作字（HUMANITY POWERED BY AI／AI共存）はデザイナー領域なので再現しない。
+     写真を替えるときは python render.py --bake 写真.jpg --name 案件名 で assets/cover_案件名.jpg を作って差し替える -->
+<section class="slide navy cover">
+  <img class="bg" src="assets/cover_sample.jpg" alt="">
+  <div class="band">
+    <i style="left:35.4px;top:517.6px;width:742.7px;height:4.2px"></i><i style="left:62.4px;top:521.8px;width:697.6px;height:5.3px"></i>
+    <i style="left:62.4px;top:527.1px;width:697.6px;height:5.4px"></i><i style="left:62.4px;top:532.5px;width:697.6px;height:5.3px"></i>
+    <i style="left:71.7px;top:537.8px;width:727.7px;height:5.3px"></i><i style="left:62.4px;top:543.1px;width:697.6px;height:5.3px"></i>
+    <i style="left:62.4px;top:548.4px;width:677.2px;height:5.3px"></i><i style="left:81.8px;top:553.7px;width:691.5px;height:5.3px"></i>
+    <i style="left:49.5px;top:559px;width:697.6px;height:5.3px"></i><i style="left:62.4px;top:564.3px;width:697.6px;height:5.3px"></i>
+    <i style="left:56.3px;top:569.6px;width:697.6px;height:3.7px"></i><i style="left:71.7px;top:573.3px;width:697.5px;height:5.3px"></i>
+    <i style="left:46.1px;top:578.6px;width:697.6px;height:5.3px"></i><i style="left:96.4px;top:583.9px;width:703px;height:5.3px"></i>
+    <i style="left:49.5px;top:589.2px;width:639.9px;height:5.3px"></i><i style="left:62.4px;top:594.5px;width:697.6px;height:5.3px"></i>
+    <i style="left:118.7px;top:599.8px;width:641.3px;height:5.3px"></i><i style="left:39.3px;top:605.1px;width:669.3px;height:5.3px"></i>
+    <i style="left:62.4px;top:610.4px;width:697.6px;height:5.4px"></i><i style="left:62.4px;top:615.8px;width:697.6px;height:5.3px"></i>
+    <i style="left:81.5px;top:621.1px;width:697.5px;height:5.3px"></i><i style="left:226.4px;top:512.3px;width:129.6px;height:5.3px"></i>
+    <i style="left:502.7px;top:626.4px;width:129.7px;height:5.3px"></i>
+  </div>
+  <div class="t1">企業向け <span>実践的AI導入のロードマップ</span></div>
+  <div class="t2">AI伴走支援から最新AIO・SNS運用まで</div>
+  <i class="dash" style="left:147.7px"></i><i class="dash" style="left:643.3px"></i>
+</section>
+
+<!-- ② INDEX（紺ベタ＋薄い「INDEX」＋番号付き章リスト） -->
+<section class="slide navy">
+  <div class="ghost idx">INDEX</div>
+  <div class="idx">
+    <div class="row"><span class="n">01</span><span class="t">AXの必要性</span></div>
+    <div class="row"><span class="n">02</span><span class="t">AXの導入について</span></div>
+    <div class="row"><span class="n">03</span><span class="t">AIO / SNSについて</span></div>
+  </div>
+  <div class="foot">Practical AI Implementation Roadmap for Businesses</div>
+  <img class="logo idxlogo" src="assets/logo_white.png" alt="">
+</section>
+
+<!-- ③ 章扉（紺×写真＋薄い特大番号＋白タイトル70px＋赤フッター英字＋右下白ロゴ） -->
+<section class="slide navy">
+  <img class="chapbg" src="assets/chapter_sample.jpg" alt="">
+  <div class="bignum chap">01</div>
+  <div class="chaptl">AXの重要性</div>
+  <div class="foot">Practical AI Implementation Roadmap for Businesses</div>
+  <img class="logo" src="assets/logo_white.png" alt="">
+</section>
+
+<!-- ④ 節扉（紙面＋薄い英単語167px＋紺タイトル50px） -->
+<section class="slide">
+  <div class="ghost sec">CHALLENGES</div>
+  <div class="frame"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="sectl">難しさと課題</div>
+</section>
+
+<!-- ⑤ 問いかけ（紙面＋薄い英単語273px＋紺50pxの一文＋22px補足） -->
+<section class="slide">
+  <div class="ghost q">Question</div>
+  <div class="frame"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="qtl">AI、使っていますか。</div>
+  <div class="qsub"><span class="hl">手を挙げて</span>ください。</div>
+</section>
+
+<!-- ⑥ 大きい数字2カード（p007：紺カード＋白カード・赤ピル・110px数字＋48.4px単位） -->
+<section class="slide">
+  <div class="frame"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="bignum">01</div>
+  <div class="cap">AI Adoption in Japan</div>
+  <div class="ttl">日本におけるAIの一般化</div>
+  <div class="card stat2" style="left:179.3px"><div class="in nv">
+    <div class="pill rd">企業</div><div class="bn">86.4<span> %</span></div><div class="bl">業務で生成AIを使っている</div>
+  </div></div>
+  <div class="card stat2" style="left:666px"><div class="in">
+    <div class="pill rd">個人</div><div class="bn">58.8<span> %</span></div><div class="bl">生成AIを使ったことがある</div>
+  </div></div>
+  <div class="concl s">調べる・書くだけでなく、<span class="hl">発注や採用にも入り始めています。</span></div>
+  <div class="src">出典：総務省「令和7年版 情報通信白書」（2025年7月・2024年度調査）</div>
+</section>
+
+<!-- ⑦ 大きい数字1つ＋実画面（p008：吹き出しつき。img を実画面に差し替える） -->
+<section class="slide">
+  <div class="frame"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="bignum">01</div>
+  <div class="cap">AI Adoption in Japan</div>
+  <div class="ttl">日本におけるAIの一般化</div>
+  <div class="hero">54.1<span>%</span></div>
+  <svg class="tail" width="23.7" height="34.4" viewBox="0 0 23.7 34.4"><polygon points="11.85,0 23.7,34.4 0,34.4" fill="#003383"/></svg>
+  <div class="bubble"><div>AIとの会話をきっかけに、<br>商品を買った人</div></div>
+  <div class="heronote">検索の一番上にAIの答えが。</div>
+  <img class="screen" src="assets/placeholder_screen.png" alt="">
+  <div class="src">出典：PLAN-B「生成AIとの対話による購買行動調査2026」（2026年5月・500名）／右：Google検索の実画面</div>
+</section>
+
+<!-- ⑧ 比較VS（p061：白カード2枚＋中央の黒丸VS） -->
+<section class="slide">
+  <div class="frame"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="bignum">02</div>
+  <div class="cap">SPECIALIZED AX SOLUTIONS</div>
+  <div class="ttl">基幹システムとの違い</div>
+  <div class="claim">お金を払う<span class="hl">対象が違う</span></div>
+  <div class="card r vs" style="left:166.3px"><div class="in">
+    <div class="k">基幹システム</div><div class="rule"></div><div class="t"><div>完成した道具に<br>お金を払う</div></div>
+  </div></div>
+  <div class="card r vs" style="left:661.5px"><div class="in">
+    <div class="k">AIが使える</div><div class="rule"></div><div class="t"><div>作れるようになることに<br>お金を払う</div></div>
+  </div></div>
+  <div class="vsdot">VS</div>
+</section>
+
+<!-- ⑨ 4カード 時間削減（p034：「16 → 3 時間/月」×4） -->
+<section class="slide">
+  <div class="frame"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="bignum">02</div>
+  <div class="cap">4 Key Accounting Tasks</div>
+  <div class="ttl">経理の4つの仕事</div>
+  <div class="card c4" style="left:183.1px;top:145.2px"><div class="in">
+    <div class="h">経費申請のチェック</div>
+    <div class="grp"><div class="gin"><div class="lab">見比べて1件ずつ</div><div class="row"><span class="from">16</span><i class="arrow"></i><span class="to">3</span><span class="u">時間/月</span></div></div></div>
+  </div></div>
+  <div class="card c4" style="left:647.5px;top:145.2px"><div class="in">
+    <div class="h">請求書の作成と確認</div>
+    <div class="grp"><div class="gin"><div class="lab">目で検算</div><div class="row"><span class="from">32</span><i class="arrow"></i><span class="to">5</span><span class="u">時間/月</span></div></div></div>
+  </div></div>
+  <div class="card c4" style="left:183.1px;top:365.8px"><div class="in">
+    <div class="h">支払予定と支払漏れ</div>
+    <div class="grp"><div class="gin"><div class="lab">手で転記</div><div class="row"><span class="from">40</span><i class="arrow"></i><span class="to">5</span><span class="u">時間/月</span></div></div></div>
+  </div></div>
+  <div class="card c4" style="left:647.5px;top:365.8px"><div class="in">
+    <div class="h">支払予定と支払漏れ</div>
+    <div class="grp"><div class="gin"><div class="lab">手で転記</div><div class="row"><span class="from">12</span><i class="arrow"></i><span class="to">2</span><span class="u">時間/月</span></div></div></div>
+  </div></div>
+  <div class="concl low">合わせてひと月 <span class="hl">85時間</span></div>
+  <div class="src">※ 従業員100名規模の目安</div>
+</section>
+
+<!-- ⑩ 縦ステップ（p095：番号丸＋見出し＋説明。強調する行だけ .nv） -->
+<section class="slide">
+  <div class="frame"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="bignum">05</div>
+  <div class="cap">75% FUNDED BY THE GOVERNMENT</div>
+  <div class="ttl">研修費用の4分の3は、国から</div>
+  <div class="card r" style="left:216.8px;top:177px;width:830.6px;height:412.5px"><div class="in">
+    <div class="steps">
+      <div class="st"><div class="dot">1</div><div class="tx"><div class="t">研修を始める1か月前までに、届け出が要ります</div><div class="m">明日すぐ、というわけにはいきません</div></div></div>
+      <div class="st"><div class="dot">2</div><div class="tx"><div class="t">一時立て替えが生じます</div><div class="m">助成金が入るのは、申請から半年ほど先です</div></div></div>
+      <div class="st"><div class="dot">3</div><div class="tx"><div class="t">助成対象は条件があります</div><div class="m">研修のみが対象です。伴走支援は対象外です</div></div></div>
+      <div class="st"><div class="dot">4</div><div class="tx"><div class="t nv">支給可否は、労働局の審査によります</div><div class="m">申請すれば通る、というものではありません</div></div></div>
+    </div>
+  </div></div>
+  <div class="src">※ この制度は改正が頻繁です。実施前に必ず管轄の労働局・社会保険労務士にご確認ください。</div>
+</section>
+
+<!-- ⑪ 3つの数字 横並び（p065：ピル＋ラベル＋102px数字。赤は数字の並びと結論2行目の2か所） -->
+<section class="slide">
+  <div class="frame"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="bignum">02</div>
+  <div class="cap">IMPACT OF AX</div>
+  <div class="ttl">AXの効果</div>
+  <div class="n3">
+    <div><div class="pill">まずはここから</div><div class="lab">1人あたり</div><div class="num">1<span>日</span>30<span>分</span></div></div>
+    <div><div class="pill">全員が使える</div><div class="lab">社員30人なら</div><div class="num"><span>月</span>300<span>時間</span></div></div>
+    <div><div class="pill">社員3〜4人分の時間</div><div class="lab">その先</div><div class="num"><span>月</span>600<span>時間</span></div></div>
+  </div>
+  <div class="concl two"><div>天井はここではありません。</div><div class="hl">使う人が増えるほど、時間の増え方が変わります。</div></div>
+</section>
+
+<!-- ⑫ やったこと→起きたこと（p024：白カード1枚の中に左右の列＋中央の紺矢印） -->
+<section class="slide">
+  <div class="frame"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="bignum">02</div>
+  <div class="cap">Difficulties &amp; Challenges of AX</div>
+  <div class="ttl">AXの難しさと課題</div>
+  <div class="card did"><div class="in">
+    <div class="pill" style="left:57.7px">やったこと</div>
+    <div class="pill rd" style="left:548.3px">起きたこと</div>
+    <div class="col" style="left:48.1px">
+      <div class="li"><div class="dot">1</div><div class="t">研修のみ実施して終了した</div></div>
+      <div class="li"><div class="dot">2</div><div class="t">効果がすぐ表れると思った</div></div>
+      <div class="li"><div class="dot">3</div><div class="t">道具だけ足した</div></div>
+    </div>
+    <div class="col after" style="left:556.2px">
+      <div class="li"><div class="t">定着しなかった</div></div>
+      <div class="li"><div class="t">短期間で効果を感じられず中断</div></div>
+      <div class="li"><div class="t">使い方が分からず元に戻った</div></div>
+    </div>
+  </div></div>
+  <i class="arrow big didarrow"></i>
+  <div class="concl">研修や提案の<span class="hl">「あと」</span>が無い</div>
+</section>
+
+<!-- ⑬ プラン3列（p097：白／推しの薄青／白。推しの列だけ見出しと価格を赤） -->
+<section class="slide">
+  <div class="frame"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="bignum">05</div>
+  <div class="cap">MONTHLY AI ADVISORY PLAN</div>
+  <div class="ttl">月額顧問プラン</div>
+  <div class="card r plan" style="left:119.8px"><div class="in">
+    <div class="h">エントリー顧問</div>
+    <div class="p">◯◯<span>万円／月</span></div>
+    <div class="d"><div>月1回の訪問＋オンライン<br>チャット相談 無制限<br>業務棚卸し・ツール選定<br>プロンプト設計・作成</div></div>
+    <div class="f">最低契約期間 6か月〜</div>
+  </div></div>
+  <div class="card r plan" style="left:481.3px"><div class="in blue">
+    <div class="h rd">スタンダード伴走</div>
+    <div class="p rd">◯◯<span>万円／月</span></div>
+    <div class="d"><div>月2回の訪問＋オンライン<br>実装・自動化の支援込み<br>社員向け勉強会（月1回）<br>チャット相談 無制限</div></div>
+    <div class="f">最低契約期間 6か月〜</div>
+  </div></div>
+  <div class="card r plan" style="left:840.3px"><div class="in">
+    <div class="h fit">オーダープロジェクト</div>
+    <div class="p c" style="top:93.8px;font-size:57.8px">御見積</div>
+    <div class="d"><div>専門的な判断・システムや<br>大量処理が必要な<br>AI制作物</div></div>
+    <div class="f c">1プロジェクト単位</div>
+  </div></div>
+  <div class="concl plan-c">Aで始めて、必要になったらBへ。途中で切り替えられます</div>
+  <div class="src">※ 記載の金額はすべて税別です。訪問回数・内容はご相談に応じて調整します。</div>
+</section>
+
+<!-- ⑭ 締め（p101：番号なし・見出しなし。紺＋赤の一文） -->
+<section class="slide">
+  <div class="frame"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="closing">
+    <div class="kakko"><span class="hl">「これ、できるかな？」</span>と思ったこと。</div>
+    <div>そのほとんどは、もう<span class="hl">AIで解決できる時代</span>です。</div>
+  </div>
+  <div class="closing2">お気軽にご相談ください</div>
+</section>
+
+
+<!-- ⑮ 節扉・紺ベタ版（A032：紺ベタ＋上端の薄い英単語＋白タイトル50px＋任意の白サブタイトル＋赤フッター＋右下白ロゴ）。
+     節扉は103枚中この紺ベタ版が9枚・紙面版（④）が4枚。サブタイトル無しなら .secnvtl に one を足して1行にする。
+     英単語は長さで文字サイズを変えて横幅いっぱいに（CASE STUDIES 165.3px／AIO STRATEGY 163px／CONSTRUCTION 144.7px） -->
+<section class="slide navy">
+  <div class="ghost secnv">CASE STUDIES</div>
+  <div class="secnvtl"><div>実例<br>総務・経理・営業 編</div></div>
+  <div class="foot secft">Practical AI Implementation Roadmap for Businesses</div>
+  <img class="logo seclogo" src="assets/logo_white.png" alt="">
+</section>
+
+<!-- ⑯ ドーナツ2つ（A080：紺／赤の輪＋中央の数字＋下にラベル2段）。
+     割合は stroke-dasharray の1つ目＝916.1×割合（916.1＝2×π×145.8）。12時から時計回り。
+     派生：2つの輪の間に .vsdot を置けば「VSつき2連」（見本 p012）になる -->
+<section class="slide">
+  <div class="frame"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="bignum">03</div>
+  <div class="cap">IT IMPACTS RECRUITMENT, TOO.</div>
+  <div class="ttl">採用のも影響します</div>
+  <div class="dnut" style="left:169.1px">
+    <svg width="322.6" height="322.6" viewBox="0 0 322.6 322.6"><circle cx="161.3" cy="161.3" r="145.8" fill="none" stroke="#C8C9CA" stroke-width="31"/><circle cx="161.3" cy="161.3" r="145.8" fill="none" stroke="#003383" stroke-width="31" stroke-dasharray="698.1 916.1" transform="rotate(-90 161.3 161.3)"/></svg>
+    <div class="dnum figtxt">76.2<span>%</span></div>
+    <div class="dlab">生成AIを使って会社を探している</div>
+    <div class="dsub">就活生・求職者</div>
+  </div>
+  <div class="dnut" style="left:660.6px">
+    <svg width="322.6" height="322.6" viewBox="0 0 322.6 322.6"><circle cx="161.3" cy="161.3" r="145.8" fill="none" stroke="#C8C9CA" stroke-width="31"/><circle cx="161.3" cy="161.3" r="145.8" fill="none" stroke="#E43C59" stroke-width="31" stroke-dasharray="648.6 916.1" transform="rotate(-90 161.3 161.3)"/></svg>
+    <div class="dnum hl figtxt">70.8<span>%</span></div>
+    <div class="dlab">知らなかった会社を、AIで知った</div>
+    <div class="dsub">AIが、会社を紹介している</div>
+  </div>
+  <div class="concl low">採用の入口も<span class="hl">AI</span>に。</div>
+  <div class="src">出典：ナイル「就職活動における生成AI活用実態調査」（2026年3月・419名）／moovy（2025年7月・26卒319名）</div>
+</section>
+
+<!-- ⑰ 主張文＋補足箱（A081：紺の主張3行＋縁なし白カードに補足1行。赤は補足の数字の1か所） -->
+<section class="slide">
+  <div class="frame"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="bignum">03</div>
+  <div class="cap">IN THE ERA AHEAD</div>
+  <div class="ttl">これからの時代</div>
+  <div class="claim3"><div>これからの時代、<br>AIに拾われなければ<br>候補にさえなれない。</div></div>
+  <div class="card flat note1"><div class="in">
+    <div class="t">これから2028年、<span class="hl">企業間取引の 90% にAIが介在する予測</span>。6人に1人が、ほぼ全員に。</div>
+  </div></div>
+  <div class="src">出典：Gartner「Top Predictions for 2026」（2025年10月21日発表）</div>
+</section>
+
+</body></html>
