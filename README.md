@@ -12,7 +12,7 @@ Central AX がお客様向けに用意した、Claude Code 用のスライド作
 Claude Code で次の2行を1行ずつ入力します。
 
 ```
-/plugin marketplace add Central-AX/okyu-slides
+/plugin marketplace add https://github.com/Central-AX/okyu-slides.git
 /plugin install okyu-slides@okyu-slides
 ```
 
